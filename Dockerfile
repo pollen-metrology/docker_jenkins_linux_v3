@@ -29,7 +29,9 @@ MAINTAINER Pollen Metrology <admin-team@pollen-metrology.com>
 # https://github.com/jenkinsci/docker-jnlp-slave
 
 ARG VERSION=3.28
-ARG AGENT_WORKDIR=/home/jenkins/agent
+ARG user=jenkins
+ARG group=jenkins
+ARG uid=2222
 
 RUN apt-get clean
 RUN apt update
@@ -88,7 +90,7 @@ RUN update-alternatives --install /usr/bin/chrome chrome-browser /usr/bin/chromi
 #### CHECK
 
 # Add user jenkins to the image
-RUN adduser --system --quiet --uid 2222 --group --disabled-login jenkins
+RUN adduser --system --quiet --uid ${uid} --group --disabled-login ${user}
 
 # Install Phabricator-related tools
 RUN DEBIAN_FRONTEND=noninteractive apt install -y php7.2-cli php7.2-curl
@@ -117,12 +119,9 @@ RUN curl --create-dirs -sSLo /usr/share/jenkins/slave.jar https://repo.jenkins-c
   && chmod 644 /usr/share/jenkins/slave.jar
 
 # USER jenkins
-RUN echo "jenkins ALL = NOPASSWD : /usr/bin/apt-get" >> /etc/sudoers.d/jenkins-can-install 
-RUN mkdir /home/jenkins/.jenkins && mkdir -p ${AGENT_WORKDIR}
-
-VOLUME /home/jenkins/.jenkins
-VOLUME ${AGENT_WORKDIR}
-WORKDIR /home/jenkins
+RUN echo "${USER} ALL = NOPASSWD : /usr/bin/apt-get" >> /etc/sudoers.d/jenkins-can-install 
+ENV AGENT_WORKDIR=${AGENT_WORKDIR}
+RUN mkdir -p ${AGENT_WORKDIR}
 
 RUN mkdir -p /home/pollen && chown jenkins:jenkins /home/pollen && ln -s /home/pollen /pollen
 
