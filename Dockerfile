@@ -104,7 +104,7 @@ RUN ln -s /home/phabricator/arcanist/bin/arc /usr/bin/arc.bat
 
 
 # Install last fresh cppcheck binary
-RUN apt install -y libpcre3-dev unzip
+RUN apt install -y libpcre3-dev unzip p7zip-full
 RUN cd /tmp && mkdir cppcheck && wget https://github.com/danmar/cppcheck/archive/1.86.zip ;  \
 	unzip -a 1.86.zip && \
 	cd cppcheck-1.86 && \
