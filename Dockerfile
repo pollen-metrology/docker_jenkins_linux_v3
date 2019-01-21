@@ -138,6 +138,11 @@ ENV JENKINS_SECRET "NOT SET"
 ENV JENKINS_URL "NOT SET"
 
 
+# Used to lauch automatically 
+# the test version of Platypus
+# on Bastion
+RUN apt install -y daemonize
+
 # Install merge-xml-coverage.py
 RUN curl --create-dirs -sSLo /usr/bin/merge-xml-coverage.py https://gist.githubusercontent.com/tgsoverly/ef975d5b430fbce1eb33/raw/a4836655814bf09ac34bd42a6dd99f37aea7265d/merge-xml-coverage.py \
 	&& chmod 755 /usr/bin/merge-xml-coverage.py
