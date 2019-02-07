@@ -46,8 +46,6 @@ RUN apt install -y git wget curl python-virtualenv python-pip build-essential py
 RUN apt install -y libeigen3-dev libxt-dev libtiff-dev libpng-dev libjpeg-dev libopenblas-dev \
 	xvfb libusb-dev
 
-RUN python -m pip install --upgrade pip conan
-
 # QT5 conan package building dependencies
 RUN apt install -y libgl1-mesa-dev libxcb1 libxcb1-dev \
 libx11-xcb1 libx11-xcb-dev libxcb-keysyms1 libdbus-1-dev \
@@ -87,10 +85,15 @@ RUN apt update && apt install -y yarn
 RUN apt install -y chromium-browser
 RUN update-alternatives --install /usr/bin/chrome chrome-browser /usr/bin/chromium-browser 100
 
-#### CHECK
-
 # Add user jenkins to the image
 RUN adduser --system --quiet --uid ${uid} --group --disabled-login ${user}
+
+# Install and setup Conan
+RUN python -m pip install --upgrade pip conan
+RUN mkdir -p /home/jenkins/.conan/profiles/default
+RUN echo 'compiler.libcxx=libstdc++11' >> /home/jenkins/.conan/profiles/default
+RUN chown -R jenkins /home/jenkins/.conan/
+
 
 # Install Phabricator-related tools
 RUN DEBIAN_FRONTEND=noninteractive apt install -y php7.2-cli php7.2-curl
