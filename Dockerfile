@@ -90,9 +90,6 @@ RUN adduser --system --quiet --uid ${uid} --group --disabled-login ${user}
 
 # Install and setup Conan
 RUN python -m pip install --upgrade pip conan
-RUN mkdir -p /home/jenkins/.conan/profiles/default
-RUN echo 'compiler.libcxx=libstdc++11' >> /home/jenkins/.conan/profiles/default
-RUN chown -R jenkins /home/jenkins/.conan/
 
 
 # Install Phabricator-related tools
@@ -115,6 +112,7 @@ RUN cd /tmp && mkdir cppcheck && wget https://github.com/danmar/cppcheck/archive
 	make install PREFIX=/usr CFGDIR=/usr/share/cppcheck/ && \
 	cd /tmp && \
 	rm -rf cppcheck
+
 
 
 RUN curl --create-dirs -sSLo /usr/share/jenkins/slave.jar https://repo.jenkins-ci.org/public/org/jenkins-ci/main/remoting/${VERSION}/remoting-${VERSION}.jar \
@@ -152,5 +150,12 @@ RUN curl --create-dirs -sSLo /usr/bin/merge-xml-coverage.py https://gist.githubu
 
 COPY jenkins-slave.sh /usr/bin/jenkins-slave.sh
 RUN chmod +x /usr/bin/jenkins-slave.sh
+
+# Install SonarQube stuff
+#RUN curl --create-dirs -sSLo /tmp/build-wrapper-linux-x86.zip  https://xxxxx.xxxxx.xx:9000/static/cpp/build-wrapper-linux-x86.zip
+COPY build-wrapper-linux-x86.zip /tmp/build-wrapper-linux-x86.zip
+RUN cd /home/jenkins && unzip -a /tmp/build-wrapper-linux-x86.zip
+RUN rm /tmp/build-wrapper-linux-x86.zip
+
 
 ENTRYPOINT ["/usr/bin/jenkins-slave.sh"]
