@@ -157,5 +157,9 @@ COPY build-wrapper-linux-x86.zip /tmp/build-wrapper-linux-x86.zip
 RUN cd /home/jenkins && unzip -a /tmp/build-wrapper-linux-x86.zip
 RUN rm /tmp/build-wrapper-linux-x86.zip
 
+RUN curl --create-dirs -sSLo /tmp/sonar-scanner-cli-3.3.0.1492-linux.zip \ 
+	https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.3.0.1492-linux.zip
+RUN cd /home/jenkins && unzip -a /tmp/sonar-scanner-cli-3.3.0.1492-linux.zip
+RUN rm /tmp/sonar-scanner-cli-3.3.0.1492-linux.zip
 
 ENTRYPOINT ["/usr/bin/jenkins-slave.sh"]
