@@ -153,8 +153,13 @@ RUN chmod +x /usr/bin/jenkins-slave.sh
 
 # Install SonarQube stuff
 #RUN curl --create-dirs -sSLo /tmp/build-wrapper-linux-x86.zip  https://xxxxx.xxxxx.xx:9000/static/cpp/build-wrapper-linux-x86.zip
+# Use local copy to ensure wrapper matches server version
 COPY build-wrapper-linux-x86.zip /tmp/build-wrapper-linux-x86.zip
 RUN cd /home/jenkins && unzip -a /tmp/build-wrapper-linux-x86.zip
+
+# Workaround, see https://community.sonarsource.com/t/sonarqube-c-ubuntu-build-wrapper-ld-preload-error/300/7
+RUN ln -s /home/jenkins/build-wrapper-linux-x86/libinterceptor-x86_64.so /home/jenkins/build-wrapper-linux-x86/libinterceptor-haswell.so
+
 RUN rm /tmp/build-wrapper-linux-x86.zip
 
 RUN curl --create-dirs -sSLo /tmp/sonar-scanner-cli-3.3.0.1492-linux.zip \ 
