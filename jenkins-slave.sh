@@ -31,6 +31,7 @@
 # * JENKINS_AGENT_WORKDIR : agent work directory, if not set by optional parameter -workDir
 
 
+mkdir /home/jenkins/.conan
 chown -R jenkins /home/jenkins
 
 if [ $# -eq 1 ]; then
