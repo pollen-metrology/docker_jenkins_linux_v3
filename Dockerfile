@@ -124,6 +124,10 @@ RUN echo "${user} ALL = NOPASSWD : /usr/bin/apt-get" >> /etc/sudoers.d/jenkins-c
 
 RUN mkdir -p /home/pollen && chown jenkins:jenkins /home/pollen && ln -s /home/pollen /pollen
 
+# Create a folder for script and copy linux_cleaning into it
+RUN mkdir -p /home/script && chown jenkins:jenkins /home/script
+COPY linux_cleaning.sh /home/script
+
 # If you put this label at the beginning of the Dockerfile, docker seems to use cache and build fails more often
 LABEL Description="This is a base image, which provides the Jenkins agent executable (slave.jar)" Vendor="Jenkins project" Version="4.0"
 
