@@ -73,7 +73,7 @@ RUN apt-get install -y software-properties-common gcc-7 g++-7 cmake lsb-core dox
 	update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 60
 
 # Install node
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
 RUN apt install -y nodejs
 
 # Install yarn
