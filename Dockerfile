@@ -41,7 +41,9 @@ RUN apt install -y --no-install-recommends default-jdk
 
 # Install utilities
 RUN apt install -y git wget curl python-virtualenv python-pip build-essential python-dev \
-	graphviz locales locales-all bind9-host iputils-ping sudo shellcheck python3-venv
+	graphviz locales locales-all bind9-host iputils-ping sudo shellcheck python3-venv python3-pip
+
+RUN pip3 install --system lcov_cobertura
 
 RUN apt install -y libeigen3-dev libxt-dev libtiff-dev libpng-dev libjpeg-dev libopenblas-dev \
 	xvfb libusb-dev

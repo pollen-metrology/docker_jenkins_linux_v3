@@ -1,12 +1,18 @@
 #!/bin/bash
+
+echo "Usage:"
+echo "$0 [aggregated coverage file] a b c d e f"
+echo "Where a, b, c, d, e and f are minimal percentage for respectively:"
+echo "globalLines globalFunctions pluginsLines pluginsFunctions modulesLines modulesFunctions"
+
 counter=0
 isPassing=0
-globalLines=50.0
-globalFunctions=50.0
-pluginsLines=25.0
-pluginsFunctions=35.0
-modulesLines=68.0
-modulesFunctions=60.0
+globalLines=$2
+globalFunctions=$3
+pluginsLines=$4
+pluginsFunctions=$5
+modulesLines=$6
+modulesFunctions=$7
 
 while read value
 do
