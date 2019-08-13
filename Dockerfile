@@ -100,6 +100,10 @@ RUN mkdir -p /home/phabricator
 RUN cd /home/phabricator && git clone https://github.com/phacility/arcanist.git
 RUN cd /home/phabricator && git clone https://github.com/phacility/libphutil.git
 
+# Linters
+RUN cd /home/phabricator && git clone https://github.com/pinterest/arcanist-linters.git
+RUN cd /home/phabricator && git clone https://github.com/vhbit/clang-format-linter.git
+
 # Hack for multiplatform support of Phabricator Jenkins plugin
 RUN mv /home/phabricator/arcanist/bin/arc.bat /home/phabricator/arcanist/bin/arc.bat.old
 RUN ln -s /home/phabricator/arcanist/bin/arc /usr/bin/arc.bat
