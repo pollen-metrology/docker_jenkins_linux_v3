@@ -40,7 +40,7 @@ RUN apt update
 RUN apt install -y --no-install-recommends default-jdk
 
 # Install utilities
-RUN apt install -y git wget curl python-virtualenv python-pip build-essential python-dev \
+RUN apt install -y git wget curl python-virtualenv python-pip build-essential python-dev zip \
 	graphviz locales locales-all bind9-host iputils-ping sudo shellcheck python3-venv python3-pip
 
 RUN pip3 install --system lcov_cobertura
