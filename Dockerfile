@@ -28,7 +28,7 @@ MAINTAINER Pollen Metrology <admin-team@pollen-metrology.com>
 # https://github.com/jenkinsci/docker-slave
 # https://github.com/jenkinsci/docker-jnlp-slave
 
-ARG VERSION=3.28
+ARG VERSION=3.35
 ARG user=jenkins
 ARG group=jenkins
 ARG uid=2222
