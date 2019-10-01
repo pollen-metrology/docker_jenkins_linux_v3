@@ -20,7 +20,7 @@ sudo docker run  \
         <agent secret hash> \
         <agent name>
 ```
-~
+
 
 
 ## Specifications
