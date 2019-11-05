@@ -111,11 +111,11 @@ RUN ln -s /home/phabricator/arcanist/bin/arc /usr/bin/arc.bat
 
 # Install last fresh cppcheck binary
 RUN apt install -y libpcre3-dev unzip p7zip-full
-RUN cd /tmp && mkdir cppcheck && wget https://github.com/danmar/cppcheck/archive/1.88.zip ;  \
-	unzip -a 1.88.zip && \
-	cd cppcheck-1.88 && \
-	make -j4 MATCHCOMPILER=yes CFGDIR=/usr/bin/cfg HAVE_RULES=yes CXXFLAGS="-O2 -DNDEBUG -Wall -Wno-sign-compare -Wno-unused-function" && \
-	make install PREFIX=/usr CFGDIR=/usr/share/cppcheck/ && \
+RUN cd /tmp && mkdir cppcheck && wget https://github.com/danmar/cppcheck/archive/1.89.zip ;  \
+	unzip -a 1.89.zip && \
+	cd cppcheck-1.89 && \
+	make -j4 MATCHCOMPILER=yes FILESDIR=/usr/bin/cfg HAVE_RULES=yes CXXFLAGS="-O2 -DNDEBUG -Wall -Wno-sign-compare -Wno-unused-function" && \
+	make install PREFIX=/usr FILESDIR=/usr/share/cppcheck/ && \
 	cd /tmp && \
 	rm -rf cppcheck
 
