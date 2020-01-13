@@ -95,7 +95,7 @@ RUN python -m pip install --upgrade pip conan
 
 
 # Install Phabricator-related tools
-RUN DEBIAN_FRONTEND=noninteractive apt install -y php7.2-cli php7.2-curl
+RUN DEBIAN_FRONTEND=noninteractive apt install -y php7.2-cli php7.2-curl php7.2-xml
 RUN mkdir -p /home/phabricator
 RUN cd /home/phabricator && git clone https://github.com/phacility/arcanist.git
 RUN cd /home/phabricator && git clone https://github.com/phacility/libphutil.git
