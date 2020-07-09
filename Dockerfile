@@ -19,6 +19,8 @@
 #  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 #  THE SOFTWARE.
+#
+# docker build -t pollenm/jenkins_linux_v3 .
 
 FROM ubuntu:18.04
 MAINTAINER Pollen Metrology <admin-team@pollen-metrology.com>
@@ -91,7 +93,8 @@ RUN update-alternatives --install /usr/bin/chrome chrome-browser /usr/bin/chromi
 RUN adduser --system --quiet --uid ${uid} --group --disabled-login ${user}
 
 # Install and setup Conan
-RUN python -m pip install --upgrade pip conan
+#RUN python -m pip install --upgrade pip conan
+RUN python3 -m pip install --upgrade pip conan
 
 
 # Install Phabricator-related tools

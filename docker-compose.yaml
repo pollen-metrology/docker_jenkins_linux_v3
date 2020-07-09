@@ -1,0 +1,43 @@
+# docker run -u root -d -p 8080:8080 -p 50000:50000 -v jenkins-data:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock  jenkinsci/blueocean
+# be careful the arguments order is important
+#sudo docker build -t pollen-metrology/jenkins_slave_v3 .
+#sudo docker run  \
+#        -d \
+#        -v pollen-dev-env:/home/pollen  \
+#        -v jenkins_workspace:/home/jenkins/workspace \
+#        pollen-metrology/jenkins_slave_v3 \
+#        -url [master server] \
+#        -workDir=/home/jenkins/agent \
+#        <agent secret hash> \
+#        <agent name>
+#
+# --------------- update licence flexera ---------------- #
+# https://jenkins.pollen-metrology.com/view/Tous/job/flexnetpublisher_update.linux64/
+# ---------------- update pollenData on all adockers ---- #
+# https://jenkins.pollen-metrology.com/view/Tous/job/releng.pollendata.linux64/
+#
+# Edit the .env file to change necessary options
+version: '3'
+services:
+  jenkins:
+    image: pollenm/jenkins_linux_v3
+    container_name: ${IMAGE_NAME}
+    restart: always
+    #user: root
+    volumes:
+        #- ./jenkins-data:/var/jenkins_home
+        #- /var/run/docker.sock:/var/run/docker.sock
+        # pollen-dev-env:/home/pollen
+        # - ./pollen-dev-env:/home/pollen
+        - /home/pollen:/home/pollen
+        - ./jenkins-workspace:/home/jenkins/workspace
+    environment:
+        - JENKINS_URL=https://jenkins.pollen-metrology.com/
+        - JENKINS_SECRET=${JENKINS_SECRET}
+        - JENKINS_AGENT_NAME=${IMAGE_NAME}
+        - AGENT_WORKDIR=/home/jenkins/jenkins_linux_v3/workdir
+    ports:
+        - 8083:8080
+        - 5001:5000
+    entrypoint: /bin/bash -c 'curl -sX POST --user jenkinsBot:112c7d28792dbd042887224bc49dfdd64d https://jenkins.pollen-metrology.com/job/flexnetpublisher_update.linux64/build & /usr/bin/jenkins-slave.sh'
+    mac_address: 08:00:27:b4:95:1c
